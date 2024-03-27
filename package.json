@@ -22,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/regmanua/dowow-threejs-forked.git"
+    "url": "https://github.com/regmanua/dowow-threejs-forked.git"
   },
   "scripts": {
-    "build": "tsc -p . && shx cp -r ../../LICENSE.md ./",
+    "build": "tsc -p .",
     "release:pack": "yarn build && yarn pack",
     "release:publish": "yarn build && yarn publish",
     "release:bump": "release-it",
@@ -44,10 +44,12 @@
     "@types/uuid": "^9.0.0",
     "rimraf": "^5.0.5",
     "typedoc": "^0.25.4",
-    "typedoc-theme-hierarchy": "^4.1.2"
+    "typedoc-theme-hierarchy": "^4.1.2",
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "@inworld/web-core": "2.2.2",
+    "@types/node": "18",
     "three": "^0.160.1",
     "three-stdlib": "^2.29.4",
     "uuid": "^9.0.1"
