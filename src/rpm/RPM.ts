@@ -88,7 +88,7 @@ export class RPM {
     for (const animationName in this.config.rpm.animations) {
       const animation: RPMAnimationType = this.config.rpm.animations[animationName];
       if (animation.type === ANIMATION_TYPE.TALKING) {
-        this.animationsTalking.push(hasCustomAnimations ? this.customAnimationsURIs[animationName] : animationName);
+        this.animationsTalking.push(animationName);
       }
       const fileURI: string = hasCustomAnimations ? this.customAnimationsURIs[animationName] :
         this.baseURI +
