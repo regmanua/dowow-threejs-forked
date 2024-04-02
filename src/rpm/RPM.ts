@@ -17,14 +17,9 @@ export type RPMProps = {
   configURI: string;
   dracoURI: string;
   rpmModelURI: string | null;
-  customAnimationsURIs: CustomAnimations;
   onLoad: Function;
   onProgress: Function;
 };
-
-export type CustomAnimations = {
-  [key: string]: string | null
-}
 
 export class RPM {
   animationLoaders: { [key: string]: GLTFAnimationLoader };
@@ -32,7 +27,6 @@ export class RPM {
   animator: RPMAnimator | null;
   baseURI: string;
   rpmModelURI: string | null;
-  customAnimationsURIs: CustomAnimations;
   config: RPMConfiguration | null;
   configFile: JSONFileLoader;
   configURI: string;
@@ -47,8 +41,7 @@ export class RPM {
     this.baseURI = props.baseURI;
     this.configURI = props.configURI;
     this.dracoURI = props.dracoURI;
-    this.rpmModelURI = props.rpmModelURI;
-    this.customAnimationsURIs = props.customAnimationsURIs
+    this.rpmModelURI = props.rpmModelURI
     this.onLoad = props.onLoad;
     this.onProgress = props.onProgress;
     this.onLoadAnimations = this.onLoadAnimations.bind(this);
@@ -79,18 +72,13 @@ export class RPM {
   }
 
   loadAnimations() {
-    const hasCustomAnimations = Object.values(this.customAnimationsURIs).length > 0 && Object.values(this.customAnimationsURIs).every(x => x && x.endsWith('.glb'))
-    if (hasCustomAnimations) {
-      console.log('RPM - Custom animations are present...');
-    } else {
-      console.log('RPM - Loading default animations...');
-    }
     for (const animationName in this.config.rpm.animations) {
-      const animation: RPMAnimationType = this.config.rpm.animations[animationName];
+      const animation: RPMAnimationType =
+        this.config.rpm.animations[animationName];
       if (animation.type === ANIMATION_TYPE.TALKING) {
-        this.animationsTalking.push(hasCustomAnimations ? this.customAnimationsURIs[animationName] : animationName);
+        this.animationsTalking.push(animationName);
       }
-      const fileURI: string = hasCustomAnimations ? this.customAnimationsURIs[animationName] :
+      const fileURI: string =
         this.baseURI +
         this.config.rpm.baseURIs.ANIMATIONS_JSON +
         animation.file;
